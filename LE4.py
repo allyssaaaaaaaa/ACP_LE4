@@ -1,74 +1,76 @@
 #Apritado, Allyssa Grace A.
 #BSIT - 2108
 
-import os 
-doc_path = os.path.expanduser("~/Documents")
+import os
 
-if not os.path.exists(doc_path):
-    os.makedirs(doc_path)
-    
+docpath = os.path.expanduser("~/Documents")
+
+if not os.path.exists(docpath):
+    os.makedirs(docpath)
+
 while(True):
-    print("-------Register Student-------")
+    print("===== Student Records Menu =====")
     print("1. Register Student")
     print("2. Open Student Record")
-    print("3. Exit")
+    print("3. Exit ")
     
-    choice = int(input("Enter your choice: "))
+    choice =  int(input("Enter your choice: "))
     
-    if choice == '1':
-        print("------ Register Student --------")
-        student_num = int(input("Student No.: "))
+    print()
+    
+    if choice == 1:
+        print("===== Register Student =====")
+        student_no = int(input("Student No.: "))
         last_name = input("Last Name: ")
         first_name = input("First Name: ")
         middle_name = input("Middle Name: ")
-        progRam = input("Program: ")
+        program = input("Program: ")
         age = int(input("Age: "))
-        sex = input("Gender : ")
-        bdate = input("Birthday : ")
-        contact_num = int(input("Contact No : "))
-
+        gender = input("Gender: ")
+        birthday= input("Birthday: ")
+        contact_no = int(input("Contact No.: "))
+        
         data = [
-            f"Student No.: {student_num}",
-            f"Last Name: {last_name}",
-            f"First Name: {first_name}",
-            f"Middle Name: {middle_name}",
-            f"Program : {progRam}",
-            f"Age : {age}",
-            f"Gender : {sex}",
-            f"Birthday : {bdate}",
-            f"Contct No : {contact_num}",
+            {"Student No." : student_no},
+            {"Last Name" : last_name},
+            {"First Name" : first_name},
+            {"Middle Name" : middle_name},
+            {"Program" : program},
+            {"Age" : age},
+            {"Gender" : gender},
+            {"Birthday" : birthday},
+            {"Contact No." : contact_no}
         ]
 
-        file_path = os.path.join(doc_path, f"{student_num}.txt")
+        file_path = os.path.join(docpath, f"{student_no}.txt")
         with open(file_path, "w") as f:
             for line in data:
                 f.write(str(line) + "\n")
 
-    elif choice == '2':
-        try:
-            student_num = input("Student No.: ")
-            file_path = os.path.join(doc_path, student_num + ".txt")
-            with open(file_path, "r") as f:
-                content = f.read()
-                print("----- Open Student Record -----")
-                print(content)
+        print(f"✅ Student record saved to: {file_path}")
+
+    elif choice == 2:
+        try: 
+            print("===== Open Student Record =====")
+            
+            student_no = int(input("Enter Student No.: "))
+           
+            
+            file_path = os.path.join(docpath, f"{student_no}.txt")
+            if os.path.exists(file_path):
+                print(f"✅ Student record found: {file_path}")
+                with open(file_path, "r") as f:
+                    for line in f:
+                        print(line.strip())
+            else:
+                print("✖️ Student record not found.")
+
         except FileNotFoundError:
-            print("❌ Student record not found.")
-            
-            
-    elif choice == '3':
-        print("goodbye, nice try!")
+            print("✖️ Student record not found.")
+    
+    elif choice == 3:
+        print("Exiting the program... Goodbye!")
         break
     else:
-        print("Invalid") 
-        break           
-    
-            
-        
-
-    
-    
-        
-    
-
-    
+        print("Invalid choice. Please try again.")
+        continue
